@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>RegiStration</title>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+	crossorigin="anonymous">
+	 <link th:href="@{css/registration2.css}" rel="stylesheet">
+     
+</head>
+<body>
+<div th:replace="home::navebar"></div>
+<br>
+<br>
+<section class="vh-100 gradient-custom">
+  <div class="container py-5 h-100">
+    <div class="row justify-content-center align-items-center h-100">
+      <div class="col-12 col-lg-9 col-xl-7">
+        <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
+          <div class="card-body p-4 p-md-5">
+          
+          
+            <!-- success message -->
+					 <!-- success message -->
+	 		     <div th:if="${param.success}" class="text-center">
+					<div class="alert alert-success">You've successfully Registration
+						to our awesome app!</div>
+				</div>
+				
+				<div th:if="${param.error}" class="text-center">
+					<div class="alert alert-danger">you have not agreed the terms and conditions !</div>
+				</div>
+          
+          
+          
+          
+              <h3 class="mb-4 pb-2 pb-md-0 mb-md-5 text-center">Registration Form</h3>
+              <form novalidate th:action="@{/registration}" method="post" enctype="multipart/form-data" th:object="${user}">
+
+              <div class="row">
+                <div class="col-md-6 mb-4">
+
+              <div class="form-outline">
+                    <input 
+               name="firstname"
+               th:field="*{firstname}"
+               type="text" 
+               class="form-control"
+               th:classappend="${#fields.hasErrors('firstname') ? 'is-invalid':''}" 
+               id="name_field"
+               aria-describedby="emailHelp" 
+               placeholder="Enter your first name"
+               th:value="${user.firstname}"/>
+               <label class="form-label" for="name_field">First Name</label>
+               
+               <div class="invalid-feedback" th:each="e:${#fields.errors('firstname')}" th:text="${e}">
+               </div>
+         
+                </div>
+
+                </div>
+                <div class="col-md-6 mb-4">
+
+                  <div class="form-outline">
+                  <input 
+               name="lastname"
+               th:field="*{lastname}"
+               type="text" 
+               class="form-control" 
+               th:classappend="${#fields.hasErrors('lastname') ? 'is-invalid':''}" 
+               id="last_field"
+               aria-describedby="emailHelp" 
+               placeholder="Enter your last name"
+               th:value="${user.lastname}"/>
+               <label class="form-label" for="last_field">Last Name</label>
+                <div class="invalid-feedback" th:each="e:${#fields.errors('lastname')}" th:text="${e}">
+                </div>
+                  </div>
+
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6 mb-4 d-flex align-items-center">
+
+                  <div class="form-outline datepicker w-100">
+               <input 
+               name="dob"
+               th:field="*{dob}"
+               type="text" 
+               class="form-control" 
+               th:classappend="${#fields.hasErrors('dob') ? 'is-invalid':''}" 
+               id="birth_field"
+               aria-describedby="emailHelp" 
+               placeholder="Enter your Birthday"
+               th:value="${user.dob}"/>
+                    <label for="birth_field" class="form-label">Birthday</label>
+                  </div>
+
+                </div>
+                <div class="col-md-6 mb-4">
+
+                  <h6 class="mb-2 pb-1">Gender: </h6>
+
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="gender" id="femaleGender"
+                      value="Female" checked />
+                    <label class="form-check-label" for="femaleGender">Female</label>
+                  </div>
+
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="gender" id="maleGender"
+                      value="Male" />
+                    <label class="form-check-label" for="maleGender">Male</label>
+                  </div>
+
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="gender" id="otherGender"
+                      value="Other" />
+                    <label class="form-check-label" for="otherGender">Other</label>
+                  </div>
+
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6 mb-4 pb-2">
+
+                  <div class="form-outline">
+                    <input 
+                name="email"
+                th:field="*{email}"
+               type="email" 
+               class="form-control" 
+               th:classappend="${#fields.hasErrors('email') ? 'is-invalid':''}" 
+               id="email_field"
+               aria-describedby="emailHelp" 
+               placeholder="Enter your Email"
+               th:value="${user.email}"/>
+                    <label class="form-label" for="emailAddress">Email</label>
+                      <div class="invalid-feedback" th:each="e:${#fields.errors('email')}" th:text="${e}">
+             </div> 
+                  </div>
+
+                </div>
+                <div class="col-md-6 mb-4 pb-2">
+
+                  <div class="form-outline">
+                   <input 
+               name="phone"
+               th:field="*{phone}"
+               type="text" 
+               class="form-control" 
+               th:classappend="${#fields.hasErrors('phone') ? 'is-invalid':''}" 
+               id="last_field"
+               aria-describedby="emailHelp" 
+               placeholder="Enter your Phone number"
+               th:value="${user.phone}"/>
+                    <label class="form-label" for="phoneNumber">Phone Number</label>
+                    <div class="invalid-feedback" th:each="e:${#fields.errors('phone')}" th:text="${e}">
+             </div>
+                  </div>
+
+                </div>
+              </div>
+
+             <div class="row">
+                <div class="col-md-6 mb-4 pb-2">
+
+                  <div class="form-outline">
+                    <input 
+               name="password"
+               th:field="*{password}"
+               type="password" 
+               class="form-control" 
+               th:classappend="${#fields.hasErrors('password') ? 'is-invalid':''}" 
+               id="email_field"
+               aria-describedby="emailHelp" 
+               placeholder="Enter your password"
+               th:value="${user.password}"/>
+               <label class="form-label" for="emailAddress">Password</label>
+                    <div class="invalid-feedback" th:each="e:${#fields.errors('password')}" th:text="${e}">
+             </div>
+                  </div>
+
+                </div>
+                <div class="col-md-6 mb-4 pb-2">
+
+                  <div class="form-outline">
+                   <input 
+               name="Address"
+               th:field="*{Address}"
+               type="text" 
+               class="form-control" 
+               th:classappend="${#fields.hasErrors('Address') ? 'is-invalid':''}" 
+               id="last_field"
+               aria-describedby="emailHelp" 
+               placeholder="Enter your Address"
+               th:value="${user.Address}"/>
+                    <label class="form-label" for="phoneNumber">Address</label>
+                    <div class="invalid-feedback" th:each="e:${#fields.errors('Address')}" th:text="${e}">
+             </div>
+                  </div>
+
+                </div>
+              </div>
+
+            
+            
+             <div class="row">
+                <div class="col-md-6 mb-4 pb-2">
+
+                  <div class="form-outline">
+                <textarea required name="about" 
+ 				       id="mytextarea"  
+ 				       th:field="*{about}"
+ 				       th:classappend="${#fields.hasErrors('about') ? 'is-invalid':''}"
+                       th:value="${user.about}" 
+                       placeholder="Enter your About"  
+                       class="form-control" rows="5" cols="150"></textarea>
+                    <label class="form-label" for="emailAddress">About</label>
+                    <div class="invalid-feedback" th:each="e:${#fields.errors('about')}" th:text="${e}">
+             </div>
+                  </div>
+
+                </div>
+                <div class="col-md-6 mb-4 pb-2">
+
+                  <div class="form-outline">
+                   <input type="file" class="form-control" name="profileimageurl">
+                    <label class="form-label" for="phoneNumber">Profile</label>
+                  </div>
+
+                </div>
+              </div>
+
+            
+            
+            
+            
+            
+            
+            
+            <div class="form-group form-check text-center">
+        <input type="checkbox" 
+        name="agreement"
+             class="form-check-input" 
+             id="agreement"/>
+             <label for="agreement">Accept terms and conditions</label>
+          </div>
+    
+            
+            
+            
+            
+            
+
+              <div class="mt-4 pt-2 text-center">
+                 <button type="submit" class="btn bg-primary text-white">Submit</button>
+                <button type="reset" class="btn btn-warning">Reset</button>
+                <span>Already registered? <a href="/" th:href="@{/login}">Login
+								here</a></span>
+              </div>
+
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+ 
+</body>
+</html>

@@ -1,0 +1,10 @@
+
+html,
+
+body{
+  background: #EAEAEA;
+}
+.my-card{
+	padding: 135px;
+	background: rgb(255, 255, 255);
+}
