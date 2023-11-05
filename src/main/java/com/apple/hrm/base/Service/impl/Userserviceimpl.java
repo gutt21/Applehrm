@@ -46,6 +46,7 @@ public class Userserviceimpl implements UserService {
 
 	@Override
 	public User save(User user) {
+		
 		User u=userrepo.save(user);
 		return u;
 	}

@@ -6,6 +6,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.security.Principal;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,12 +26,15 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.apple.hrm.base.Repository.Contactrepository;
 import com.apple.hrm.base.Service.UserService;
+import com.apple.hrm.base.entity.Rating;
 import com.apple.hrm.base.entity.User;
 import com.apple.hrm.base.entity.contact;
+import com.apple.hrm.base.external.service.Ratingservice;
 import com.apple.hrm.base.helper.Message;
 
 import jakarta.servlet.http.HttpSession;
@@ -48,8 +52,16 @@ public class Usercontroller {
 	   @Autowired
 	   private UserService userservice;
 	   
+	   
+	   @Autowired
+	   private RestTemplate resttemple;
+	   
+	   
 	   @Autowired
 	   private Contactrepository contrepo;
+	   
+	   @Autowired
+	   private Ratingservice ratingservice;
 	  
 	   @ModelAttribute
 	   public void addcommon(Model model,Principal principle) {
@@ -297,8 +309,21 @@ public class Usercontroller {
 	    }
 	    
 	    
-	    
-	    
+	    @GetMapping("/ratings")
+	    public String getratingbyuserid(Model model,Principal principle) {
+	    	String email=principle.getName();
+	    	User user=userservice.verfiyemailandpassword(email);
+	    	Rating[] getallratingbyusinguserid = ratingservice.getallratingbyusinguserid(String.valueOf(user.getId()));
+		    List<Rating>list1  = Arrays.stream(getallratingbyusinguserid).toList();
+		    list1.stream().forEach(System.out::println);
+	    	user.setRaing(list1);
+		    model.addAttribute("user", list1);
+	    	model.addAttribute("title", "Ratings");
+	    	
+	    	
+	    	return "normal/Rating";
+	    	
+	    }
 	    
 	    
 	    

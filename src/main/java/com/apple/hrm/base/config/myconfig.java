@@ -1,5 +1,6 @@
 package com.apple.hrm.base.config;
 
+import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -10,6 +11,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.web.client.RestTemplate;
 
 import com.apple.hrm.base.Service.impl.Userserviceimpl;
 
@@ -55,6 +57,18 @@ public class myconfig {
                  .permitAll());
           return http.build();
 		 }
+	
+	
+	
+	@Bean
+	@LoadBalanced   // it is marker interfacce
+	public RestTemplate resttemplet() {
+		
+		return new RestTemplate();
+	}
+	
+	
+
 	
 	
 	

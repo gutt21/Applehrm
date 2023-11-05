@@ -32,9 +32,20 @@ public class controller {
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
 	
-	
+
 	@Autowired
 	private UserService userservice;
+	
+	
+
+	@GetMapping("/")
+	public String Home(Model model) {
+		model.addAttribute("user", "login");
+		model.addAttribute("title", "Login");
+		return "login";
+		
+	}
+	
 	
 	
 	@GetMapping("/login")
